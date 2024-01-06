@@ -1,0 +1,15 @@
+.card{
+    position: relative;
+}
+.card-actions{
+    position: absolute;
+    background-color: white;
+    border-radius: 100%;
+    top: 0;
+}
+.icon-like, .icon-star{
+    border-radius: 50%;
+    padding: 10%;
+    background-color: inherit;
+}
+

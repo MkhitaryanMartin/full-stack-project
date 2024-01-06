@@ -1,0 +1,50 @@
+/* MenuIcon.css */
+
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .line {
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  
+  /* Анимация открытия и закрытия */
+  .menu-icon.open .line1 {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .menu-icon.open .line2 {
+    opacity: 0;
+  }
+  
+  .menu-icon.open .line3 {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
+  /* Анимация при наведении */
+  .menu-icon:hover .line {
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  
+  .menu-icon:hover .line1 {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .menu-icon:hover .line2 {
+    opacity: 0;
+  }
+  
+  .menu-icon:hover .line3 {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  

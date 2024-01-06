@@ -1,0 +1,57 @@
+.input-container {
+    max-width: 450px;
+    min-width: 270px;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: start;
+    span{
+        width: 100%;
+        i{
+            margin: 0 0 0 5px;
+        font-size: 25px;
+        }
+    }
+}
+
+.valid {
+    color: green
+}
+
+.errorText::before {
+    display: inline;
+    content: "⚠ ";
+}
+
+.errorText,
+.notValid {
+    color: red
+}
+
+.input {
+    width: 100%;
+    height: 52px;
+    margin-top: 5px;
+    outline: none;
+    border-color: white;
+    border: none;
+    background-color: #F4F2F8;
+    padding-left: 10px;
+    &:focus{
+        outline: none;
+        border-color: none;
+    
+    }
+}
+
+
+
+.input-block{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F4F2F8;
+    padding:  0 1%;
+}
+

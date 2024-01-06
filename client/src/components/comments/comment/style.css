@@ -1,0 +1,45 @@
+.Comment-Container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.Comment{
+    align-items: flex-start;
+}
+
+.MyComment{
+    align-items: flex-end;
+}
+
+
+.MyComment .Comment-form{
+    width: 100%;
+   align-items: flex-end;
+}
+.Comment .Comment-form{
+    
+   align-items: flex-start;
+}
+
+.Comment-Container .Comment-form .textarea{
+   min-width: 300px;
+   min-height: 100px;
+}
+
+
+
+@media screen and (max-width: 750px) {
+    .message-orange__block,.MyComment{
+        margin: 10px 0 10px 10px;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .Comment-Container{
+     align-items: flex-start;
+    }
+    .MyComment{
+        align-items: flex-start;
+        margin: 10px 0 10px 0;
+    }
+  }

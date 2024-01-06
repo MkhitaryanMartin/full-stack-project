@@ -1,0 +1,60 @@
+.CommentLayout{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+   padding: 50px 5%;
+  max-width: 800px;
+}
+
+.Comments-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .textarea{
+        padding: 10px;
+        min-width: 500px;
+        min-height: 150px;
+    }
+    .input-container{
+        min-width: 50%;
+        span{
+            display: none;
+        }
+        .input-block{
+            height: 150px;
+            .input::placeholder {
+                position: absolute;
+                top: 5px;
+                left: 5px;
+              }
+        }
+    }
+    button{
+        margin-top: 10px;
+        justify-content: flex-start;
+    }
+}
+
+.form__button-block{
+    display: flex;
+    align-items: flex-start;
+  
+}
+
+
+@media screen and (max-width: 500px) {
+    .CommentLayout{
+       padding: 50px 0;
+    }
+    .Comments-form{
+        width: 100%;
+        align-items: center;
+        .textarea{
+            padding: 10px;
+            min-width: 90%;
+            min-height: 100px;
+        }
+    }
+   
+  }
