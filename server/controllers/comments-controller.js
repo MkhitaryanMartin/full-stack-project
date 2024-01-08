@@ -8,7 +8,6 @@ class CommentsController{
             const comments = await CommentService.getComments(id)
             return res.json(comments)
         } catch (error) {
-            console.log(error)
             return res.status(500).json("Error")
         }
     }
@@ -18,7 +17,6 @@ class CommentsController{
             const comment = await CommentService.addComment(body)
             return res.json(comment)
         } catch (error) {
-            console.log(error)
             return res.status(500).json("Error")
         }
     }

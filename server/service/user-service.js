@@ -22,7 +22,6 @@ class UserService{
         let photoUrl = null;
       
         if (photo) {
-            console.log(photo)
           const fileData = photo.buffer;
           const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
             bucketName: 'photos'

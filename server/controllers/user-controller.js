@@ -7,7 +7,6 @@ const { ObjectId } = require('mongoose').Types;
 class UserController{
 
     async registration(req, res, next){
-        console.log(req.body)
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -16,7 +15,9 @@ class UserController{
             const {email, password, phone, firstName, lastName} = req.body
            const {file}= req
             const userData = await userService.registration(email, password, phone, firstName, lastName, file)
-            res.cookie("refreshToken", userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+            res.cookie("refreshToken", userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000,   secure: true, 
+            httpOnly: true,
+            sameSite: 'none' })
             return res.json(userData)
         } catch (e) {
             console.log(e)
