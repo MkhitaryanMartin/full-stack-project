@@ -5,15 +5,11 @@ const router = require("./routes/index.js");
 const mongoose = require("mongoose");
 const errorMiddleware = require("./middlewares/error-middleware.js");
 const path = require("path");
-// const products = require("./man")
-// const Product = require("./models/product-models.js")
+
 
 const app = express();
 app.use(express.json())
-app.use(cors({
-    credentials:true,
-    origin: "https://full-stack-project-lyart.vercel.app/"
-}));
+
 app.use(cookieParser())
 app.use("/api/auth", router.auth)
 app.use("/api/shop", router.product)
