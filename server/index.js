@@ -9,7 +9,7 @@ const path = require("path");
 
 const app = express();
 app.use(express.json())
-
+app.use(cors());
 app.use(cookieParser())
 app.use("/api/auth", router.auth)
 app.use("/api/shop", router.product)
