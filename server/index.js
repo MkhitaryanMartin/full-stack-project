@@ -10,11 +10,14 @@ const path = require("path");
 const app = express();
 app.use(express.json())
 app.use(cors({
-    origin: 'https://full-stack-project-lyart.vercel.app',
+    origin: process.env.CLIENT_URL,
     credentials: true
   }));
 app.use(cookieParser())
 app.use("/api/auth", router.auth)
+app.use("/registration", async(req, res)=>{
+    console.log(req.body)
+})
 app.use("/api/shop", router.product)
 app.use("/api/comment", router.comment)
 app.use('/images/products', express.static(path.join(__dirname, 'images', 'products')))

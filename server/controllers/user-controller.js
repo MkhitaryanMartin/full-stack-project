@@ -7,6 +7,7 @@ const { ObjectId } = require('mongoose').Types;
 class UserController{
 
     async registration(req, res, next){
+        console.log(req.body)
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -75,7 +76,6 @@ class UserController{
         }
     }
     async getPhoto(req, res, next) {
-        console.log("hay")
         try {
             const photoId = req.params.id;
             const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {

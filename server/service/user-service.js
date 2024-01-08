@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 
 class UserService{
 
-    async  registration(email, password, phone, lastName, firstName, photo) {
+    async registration(email, password, phone, lastName, firstName, photo) {
         const candidate = await UserModel.findOne({ email });
         if (candidate) {
           throw new Error(`${email} email уже зарегистрирован`);
@@ -22,7 +22,8 @@ class UserService{
         let photoUrl = null;
       
         if (photo) {
-          const fileData = await fs.promises.readFile(photo.path);
+            console.log(photo)
+          const fileData = photo.buffer;
           const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
             bucketName: 'photos'
           });
@@ -30,8 +31,7 @@ class UserService{
           const uploadStream = bucket.openUploadStream(photo.originalname);
           uploadStream.end(fileData);
       
-          photoUrl = `${process.env.API_URL}/api/auth/photos/${uploadStream.id}`; // Здесь нужно указать правильный путь к фото в API
-          
+          photoUrl = `${process.env.API_URL}/api/auth/photos/${uploadStream.id}`;
         }
       
         const hashPassword = await bcrypt.hash(password, 7);
@@ -44,7 +44,7 @@ class UserService{
           phone,
           lastName,
           firstName,
-          photo : photoUrl// Сохраняем ссылку на фото в документе пользователя
+          photo: photoUrl // Сохраняем ссылку на фото в документе пользователя
         });
       
         // Отправляем письмо с активационной ссылкой
