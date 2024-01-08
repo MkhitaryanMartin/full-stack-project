@@ -10,7 +10,10 @@ const path = require("path");
 
 const app = express();
 app.use(express.json())
-app.use(cors());
+app.use(cors({
+    credentials:true,
+    origin: "https://full-stack-project-4r1qajuok-mkhitaryanmartin.vercel.app/"
+}))
 app.use(cookieParser())
 app.use("/api/auth", router.auth)
 app.use("/api/shop", router.product)
