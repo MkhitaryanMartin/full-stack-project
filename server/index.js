@@ -12,8 +12,8 @@ const app = express();
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    credentials:true,
-    origin: "https://full-stack-project-lyart.vercel.app/"
+    credentials: true,
+    origin: "*"
 }));
 app.use("/api/auth", router.auth)
 app.use("/api/shop", router.product)
