@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json())
 app.use(cors({
     credentials:true,
-    origin: "https://full-stack-project-4r1qajuok-mkhitaryanmartin.vercel.app/"
+    origin: "https://full-stack-project-lyart.vercel.app/"
 }))
 app.use(cookieParser())
 app.use("/api/auth", router.auth)
