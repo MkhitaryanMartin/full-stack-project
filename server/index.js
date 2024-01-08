@@ -10,10 +10,7 @@ const path = require("path");
 
 const app = express();
 app.use(express.json())
-app.use(cors({
-    credentials:true,
-    origin: process.env.CLIENT_URL
-}))
+app.use(cors());
 app.use(cookieParser())
 app.use("/api/auth", router.auth)
 app.use("/api/shop", router.product)
@@ -24,8 +21,6 @@ app.use(errorMiddleware);
 
 
 const PORT = process.env.PORT || 5000;
-
-console.log("hay")
 const start = async ()=>{
 
     try {
@@ -33,7 +28,7 @@ const start = async ()=>{
         app.listen(PORT, ()=> console.log(`SERVER run in ${PORT} port`))
         
     } catch (error) {
-        console.log(error)
+        console.log(error, 'hay')
     }
 }
 
