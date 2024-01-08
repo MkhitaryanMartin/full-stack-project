@@ -9,68 +9,54 @@ const tokenModels = require("../models/token-models.js");
 const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const mongoose = require('mongoose');
 
 class UserService{
 
-    async registration(email, password, phone, lastName, firstName, photo) {
+    async  registration(email, password, phone, lastName, firstName, photo) {
         const candidate = await UserModel.findOne({ email });
         if (candidate) {
-            throw ApiError.BadRequest(`${email} email is already registered`);
+          throw new Error(`${email} email уже зарегистрирован`);
         }
-    
-        let photoUrl = ''; // По умолчанию устанавливаем пустую строку
-    
+      
+        let photoUrl = null;
+      
         if (photo) {
-            // Получаем расширение файла
-            const fileExt = path.extname(photo.originalname);
-            const fileName = uuidv4() + fileExt;
-    
-            // Путь для сохранения файла в папке images в корневой директории
-            const uploadDir = path.join(__dirname, '../images/user');
-            const filePath = path.join(uploadDir, fileName);
-    
-            // Проверяем существует ли путь, и создаем его, если не существует
-            if (!fs.existsSync(uploadDir)) {
-                fs.mkdirSync(uploadDir, { recursive: true });
-            }
-    
-            // Сохраняем файл на сервере
-            fs.copyFileSync(photo.path, filePath);
-    
-            // Сохраняем путь к файлу (URL) в базе данных (MongoDB)
-            photoUrl = `${process.env.API_URL}/images/user/${fileName}`;
+          const fileData = await fs.promises.readFile(photo.path);
+          const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+            bucketName: 'photos'
+          });
+      
+          const uploadStream = bucket.openUploadStream(photo.originalname);
+          uploadStream.end(fileData);
+      
+          photoUrl = `${process.env.API_URL}/api/auth/photos/${uploadStream.id}`; // Здесь нужно указать правильный путь к фото в API
+          
         }
-    
-        // Хешируем пароль и создаем активационную ссылку
+      
         const hashPassword = await bcrypt.hash(password, 7);
         const activationLink = uuidv4();
-    
-        // Создаем пользователя в базе данных
+      
         const user = await UserModel.create({
-            email,
-            password: hashPassword,
-            activationLink,
-            phone,
-            lastName,
-            firstName,
-            photo: photoUrl, // Сохраняем URL в поле photo
+          email,
+          password: hashPassword,
+          activationLink,
+          phone,
+          lastName,
+          firstName,
+          photo : photoUrl// Сохраняем ссылку на фото в документе пользователя
         });
-    
+      
         // Отправляем письмо с активационной ссылкой
         await mailService.sendActivationMail(email, `${process.env.API_URL}/api/auth/activate/${activationLink}`);
-    
-        // Генерируем токены и сохраняем их
+      
         const userDto = new UserDto(user);
-        const tokens = tokenService.generateToken({...userDto});
+        const tokens = tokenService.generateToken({ ...userDto });
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
-    
-        // Удаляем временную папку, если она существует
-        if (fs.existsSync(path.resolve("uploads"))) {
-            fs.rmdirSync(path.resolve("uploads"), { recursive: true });
-        }
-    
-        return {...tokens, user: userDto};
-    }
+      
+        return { ...tokens, user: userDto };
+      }
+      
     
 
     async activate(activationLink){

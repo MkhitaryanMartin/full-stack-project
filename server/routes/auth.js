@@ -14,5 +14,6 @@ router.post("/logout", UserController.logout);
 router.get("/activate/:link", UserController.activate);
 router.get("/refresh", UserController.refresh);
 router.get("/users",  authMiddleware, UserController.getUsers);
+router.get("/photos/:id",  UserController.getPhoto);
 
 module.exports = router

@@ -34,7 +34,7 @@ export default function Header() {
         dispatch(fetchLogout())
 
     }
-
+console.log(user)
     return (
         <Box sx={{ flexGrow: 1, mb:"50px" }} component="header">
             <AppBar position="fixed">
