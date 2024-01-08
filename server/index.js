@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
     credentials:true,
-    origin: "https://full-stack-project-lyart.vercel.app"
+    origin: "https://full-stack-project-lyart.vercel.app/"
 }));
 app.use("/api/auth", router.auth)
 app.use("/api/shop", router.product)
