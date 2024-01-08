@@ -25,25 +25,12 @@ app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 5000;
 
-
+console.log("hay")
 const start = async ()=>{
 
     try {
         await mongoose.connect(process.env.MONGODB_URI)
         app.listen(PORT, ()=> console.log(`SERVER run in ${PORT} port`))
-        // products.forEach((obj) => {
-        //     // Создаем новый экземпляр модели Product на основе каждого объекта
-        //     const product = new Product(obj);
-          
-        //     // Сохраняем объект в базу данных
-        //     product.save()
-        //       .then((result) => {
-        //         console.log('Объект успешно сохранен в базе данных:', result);
-        //       })
-        //       .catch((error) => {
-        //         console.error('Ошибка при сохранении объекта:', error);
-        //       });
-        //   });
         
     } catch (error) {
         console.log(error)
